@@ -2,10 +2,11 @@ $(document).ready(function() {
 	
 	var color = 'white';
 	var colors = 'red green blue yellow white';
+	var drawing = false;
 
-	$('.box').on('click', function() {
-		$(this).addClass(color);
-	});
+	// $('.box').on('click', function() {
+	// 	$(this).addClass(color);
+	// });
 
 	$('.box').dblclick(function() {
 		$(this).removeClass(colors);
@@ -35,14 +36,19 @@ $(document).ready(function() {
 		color = 'white';
 	});
 
-	$('.box').on('mousedown', function() {
-		$('.box').hover(function() {
+	//Allows for clicking and "dragging" to draw
+	$('.box').on('mouseenter', function() {
+		if(drawing) {
 			$(this).addClass(color);
-		});
-		$('.box').on('mouseup', function() {
-			$('.box').hover(function() {});
-		});
+			$('.box').on('click', function() {
+				drawing = false;
+			});
+		} else {
+			$('.box').on('click', function() {
+				drawing = true;
+				$(this).addClass(color);
+			});
+		}
 	});
-
 
 });
